@@ -6,6 +6,8 @@ import { ChooseCategory } from "./inputComponents/ChooseCategory";
 import { useRecordData, useSetDisplay } from "@/app/records/page";
 import axios from "axios";
 import { useData } from "./providers/DataProvider";
+import { RxCross2 } from "react-icons/rx";
+import { Spacer } from "./Spacer";
 
 const types = [
   {
@@ -51,16 +53,12 @@ export const InputField = () => {
     e.preventDefault();
     const { elements } = e.target;
     const type = geldType;
-    // const icon = selectedCategory.icon;
-    // const category = selectedCategory.category;
-    // const date = elements.Date.value;
-    // const time = elements.Time.value;
+    const iconName = "icon name here";
+    const category = "category name here";
+    const date = elements.Date.value;
     const amount = elements.amount.value;
-    // const currency = "T";
 
-    const token = localStorage.getItem("token");
-console.log(type, amount, token);
-    await postRecord(type, amount, token);
+    await postRecord(type, category, amount, date, iconName);
 
     setIsDisplayInputField((prev) => !prev);
   };
@@ -82,35 +80,38 @@ console.log(type, amount, token);
         } `}
       >
         <form
-          className=" flex justify-center items-center bg-[#fff] rounded-[10px]"
+          className=" flex justify-center items-center bg-[#fff] rounded-[10px] w-[80%]"
           onSubmit={submitted}
         >
           <div className="w-full flex flex-col justify-center items-center p-[20px]">
             <div className="w-full flex justify-between">
-              <div>Add record</div>
+              <div className="text-[24px]">Add record</div>
               <div
                 onClick={() => {
                   setIsDisplayInputField((prev) => !prev);
                 }}
-                className={`cursor-pointer`}
+                className={`cursor-pointer flex justify-center items-center `}
               >
-                X
+                <RxCross2 className="w-[35px] h-[35px]"/>
               </div>
             </div>
-            <hr />
+           <Spacer/>
 
             <div className={styles.gridCont}>
-              <div className={styles.gridBox}>
-                <div className="w-full h-fit flex bg-[#D1D5DB] rounded-[20px]">
+              <div className="flex flex-col gap-[20px]">
+                <div className="w-full h-fit flex bg-[#F3F4F6] rounded-[20px] ">
                   {types.map((item, index) => {
                     return (
                       <div
                         key={index}
                         onClick={clicked}
-                        className={`w-full bg-gray-50 rounded-[20px] cursor-pointer grow p-[10px]`}
+                        className={`w-full bg-[#F3F4F6] rounded-[20px] cursor-pointer grow p-[10px] text-center`}
                         style={{
                           background: `${
-                            geldType === item.label ? item.color : "#D1D5DB"
+                            geldType === item.label ? item.color : "#F3F4F6"
+                          }`,
+                          color: `${
+                            geldType === item.label ? "#fff" : "#1F2937"
                           }`,
                         }}
                       >
@@ -120,11 +121,11 @@ console.log(type, amount, token);
                   })}
                 </div>
 
-                <div className="w-full bg-gray-50">
+                <div className="w-full bg-[#F3F4F6] rounded-[10px] p-[15px] border-secondary border-[1px]">
                   <div>Amount</div>
                   <input
                     id="amount"
-                    className="bg-gray-50"
+                    className="bg-[#F3F4F6]"
                     type="text"
                     placeholder={`000.00`}
                   />
@@ -132,27 +133,31 @@ console.log(type, amount, token);
 
                 <ChooseCategory />
 
-                <div className="w-full h-fit flex bg-gray-300 rounded-[20px] gap-[20px]">
-                  <div>
-                    <div>Date</div>
-                    <input
-                      id="Date"
-                      type="date"
-                      className={`w-full bg-gray-50 rounded-[20px] cursor-pointer grow p-[10px] border-[5px]`}
-                    />
+                <div className="w-full flex gap-[20px]">
+                  <div className="grow" style={{ flexBasis: 0 }}>
+                    <div className="w-full">
+                      <div>Date</div>
+                      <input
+                        id="Date"
+                        type="date"
+                        className={`w-full bg-primary rounded-[15px] border-secondary border-[1px] cursor-pointer p-[10px]`}
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <div>Time</div>
-                    <input
-                      id="Time"
-                      type="time"
-                      className={`w-full bg-gray-50 rounded-[20px] cursor-pointer grow p-[10px] border-[5px]`}
-                    />
+                  <div className="grow" style={{ flexBasis: 0 }}>
+                    <div className="w-full">
+                      <div>Time</div>
+                      <input
+                        id="Time"
+                        type="time"
+                        className={`w-full bg-primary rounded-[15px] border-secondary border-[1px] cursor-pointer p-[10px]`}
+                      />
+                    </div>
                   </div>
                 </div>
 
                 <button
-                  className="w-full bg-sky-400 rounded-[10px]"
+                  className="w-full bg-mainBlue rounded-[10px] text-white px-[20px] h-[40px]"
                   style={{
                     background: `${
                       geldType === "Expense" ? "#0166FF" : "#16A34A"
@@ -165,23 +170,25 @@ console.log(type, amount, token);
               </div>
               <div className={styles.gridBox}>
                 <div className="flex flex-col justify-between gap-[20px]">
-                  <div className="w-full bg-gray-50">
+                  <div className="w-full flex flex-col gap-[10px]">
                     <div>Payee</div>
                     <input
                       id="payee"
-                      className="bg-gray-50"
+                      className="bg-primary border-secondary border-[1px] w-full rounded-[10px] h-[60px] p-[20px]"
                       type="text"
-                      placeholder={`000.00`}
+                      placeholder={`write here`}
                     />
                   </div>
 
-                  <div className="w-full bg-gray-50 grow">
-                    <div>Note</div>
+                  <div className="w-full flex flex-col gap-[10px] grow">
+                    <div className="flex flex-col gap-[10px] h-full">
+                    <div className="">Note</div>
                     <textarea
                       id="note"
-                      className="bg-gray-50 w-full"
+                      className="bg-primary w-full h-[270px] border-[1px] border-secondary rounded-[10px] p-[20px] grow"
                       placeholder={`note is here`}
                     />
+                    </div>
                   </div>
                 </div>
               </div>

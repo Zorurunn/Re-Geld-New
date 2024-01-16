@@ -54,16 +54,22 @@ export const DataProvider = ({ children } ={ }) => {
   // POST Record
   const postRecord = async (
     type,
-    amount,
-    token
+      category,
+      amount,
+      date,
+      iconName,
   ) => {
+    const token = localStorage.getItem("token");
     try {
       const { data } = await axios.post(
         "http://localhost:3002/records",
 
         {
           type,
+          category,
           amount,
+          date,
+          iconName,
         },
         {
           headers: {
@@ -79,14 +85,16 @@ export const DataProvider = ({ children } ={ }) => {
   };
 
   // POST Category
-  const postCategory = async (icon, category, token) => {
+  const postCategory = async ( name, icon) => {
+    const token = localStorage.getItem("token");
+
     try {
-      const { data } = await axios.post(
+      await axios.post(
         "http://localhost:3002/categories",
 
         {
+          name,
           icon,
-          category,
         },
         {
           headers: {
@@ -94,8 +102,6 @@ export const DataProvider = ({ children } ={ }) => {
           },
         }
       );
-      console.log(data);
-
       setRefresh((prev) => 1 - prev);
     } catch (error) {
       console.log(error);

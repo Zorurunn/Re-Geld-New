@@ -1,5 +1,6 @@
 "use client";
 import * as myIcons from "react-icons/ai";
+import { FaCaretDown } from "react-icons/fa";
 
 import { useLayout } from "@/app/layout";
 import styles from "@/components/Css/input.module.css";
@@ -44,18 +45,20 @@ export function ChooseCategory() {
         onClick={() => {
           setIshidden((prev) => !prev);
         }}
-        className="cursor-pointer flex justify-between p-[10px] bg-gray-50 items-center"
+        className="cursor-pointer flex justify-between p-[15px] bg-primary items-center rounded-[10px] border-secondary border-[1px]"
       >
         <div>
           {selectedCategory === null ? (
             <div className="flex gap-[10px] p-[10px]">
-              <div>Find or choose category</div>
+              <div className="text-textHolder"> Choose</div>
             </div>
           ) : (
             <CategoryLine {...selectedCategory} />
           )}
         </div>
-        <div>🔽</div>
+        <div>
+          <FaCaretDown/>
+        </div>
       </div>
       <div className="relative">
         <div

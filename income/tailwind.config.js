@@ -13,10 +13,17 @@ module.exports = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      // colors: {
+      //   primary: "#0166FF4",
+      //   secondary: "#16A34A",
+      //   saaral: "#D1D5DB",
+      // },
       colors: {
-        primary: "#0166FF4",
-        secondary: "#16A34A",
-        saaral: "#D1D5DB",
+        primary:"#F3F4F6",
+        secondary: "#D1D5DB",
+        textHolder: "#94A3B8",
+        mainBlue: "#0166FF",
+        baseColor: "#1F2937"
       },
     },
   },

@@ -123,34 +123,32 @@ app.post("/records", async (req, res) => {
       message: "Auth nashi",
     });
   }
-  console.log("kitaa");
 
   try {
     const payload = jwt.verify(authorization, "secret-key");
-    console.log(authorization);
 
     const { id } = payload;
     const {
       type,
-      // category,
+      category,
       amount,
-      // date,
-      // payee,
-      // note,
+      date,
+      payee,
+      note,
       // categoryColor,
-      // iconName,
+      iconName,
     } = req.body;
 
     await Record.create({
       type,
       userId: id,
-      // category,
+      category,
       amount,
-      // date: new Date(date),
-      // payee,
-      // note,
+      date,
+      payee,
+      note,
       // categoryColor,
-      // iconName,
+      iconName,
       updatedAt: new Date(),
       createdAt: new Date(),
     });
@@ -181,11 +179,12 @@ app.post("/categories", async (req, res) => {
 
     const { id } = payload;
 
-    const { name } = req.body;
+    const { name, icon } = req.body;
 
     await Category.create({
       userId: id,
       name,
+      icon,
       updatedAt: new Date(),
       createdAt: new Date(),
     });

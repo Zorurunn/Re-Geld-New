@@ -81,12 +81,10 @@ export function AddCategory() {
   const addCategoryClicked = (event) => {
     event.preventDefault();
     const { elements } = event.target;
-    const category = elements.category.value;
+    const name = elements.category.value;
 
-    const token = localStorage.getItem("token");
-    console.log(selectedIcon.value);
-
-    postCategory(selectedIcon, category, token);
+    const icon = selectedIcon;
+    postCategory(name, icon);
 
     setVisiblityInputField((prev) => !prev);
 
