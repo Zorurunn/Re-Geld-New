@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { LastRecordLine } from "./LastRecordLine";
-import { HomeSvg } from "./SVG/HomeSvg";
+import { LastRecordLine } from "../../../components/LastRecordLine";
+import { HomeSvg } from "../../../components/SVG/HomeSvg";
 import styles from "@/components/Css/lastRecord.module.css";
 import { useDashboardData } from "@/app/dashboard/page";
 

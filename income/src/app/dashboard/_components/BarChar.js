@@ -1,6 +1,6 @@
-import { Dot } from "./SVG/Dot";
+import { Dot } from "../../../components/SVG/Dot";
 
-export default function CircleChar() {
+export default function BarChar() {
   return (
     <>
       <div className="w-full h-full flex flex-col justify-between bg-[white] relative">

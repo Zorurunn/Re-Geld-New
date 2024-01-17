@@ -80,7 +80,7 @@ export const InputField = () => {
         } `}
       >
         <form
-          className=" flex justify-center items-center bg-[#fff] rounded-[10px] w-[80%]"
+          className=" flex justify-center items-center bg-[#fff] rounded-[10px] max-w-[800px] w-[60%] min-w-[600px]"
           onSubmit={submitted}
         >
           <div className="w-full flex flex-col justify-center items-center p-[20px]">
@@ -95,7 +95,7 @@ export const InputField = () => {
                 <RxCross2 className="w-[35px] h-[35px]"/>
               </div>
             </div>
-           <Spacer/>
+            <hr className="border-secondary border-[1px] w-full mt-[20px] mb-[20px]"/>
 
             <div className={styles.gridCont}>
               <div className="flex flex-col gap-[20px]">
@@ -126,7 +126,7 @@ export const InputField = () => {
                   <input
                     id="amount"
                     className="bg-[#F3F4F6]"
-                    type="text"
+                    type="number"
                     placeholder={`000.00`}
                   />
                 </div>

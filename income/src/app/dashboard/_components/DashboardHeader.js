@@ -2,7 +2,7 @@
 import { Container } from "@/components/Container";
 import { VectorSvg } from "@/components/SVG/VectorSvg";
 import Link from "next/link";
-import { useAuthZ } from "./providers/AuthProviderZ";
+import { useAuthZ } from "../../../components/providers/AuthProviderZ";
 
 export default function DashBoardHeader() {
   const { signOut } = useAuthZ();

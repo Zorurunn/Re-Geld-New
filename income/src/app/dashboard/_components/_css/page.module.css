@@ -1,0 +1,23 @@
+.grid3Cont{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    height: 30%;
+}
+
+.gridSpanCont{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    height: 70%;
+}
+
+.box{
+    border-radius: 10px;
+    overflow: hidden;
+    height: 100%;
+}
+
+.boxSpan{
+    grid-column: 1 / span 2;
+}

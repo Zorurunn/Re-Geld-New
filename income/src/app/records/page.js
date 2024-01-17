@@ -1,7 +1,7 @@
 "use client";
 import { Container } from "@/components/Container";
 import recStyle from "@/components/Css/records.module.css";
-import DashBoardHeader from "@/components/DashboardHeader";
+import DashBoardHeader from "@/app/dashboard/_components/DashboardHeader";
 import { InputField } from "@/components/InputField";
 import Details from "@/components/detailsComponents/Details";
 import DetailsHeader from "@/components/detailsComponents/DetailsHeader";
