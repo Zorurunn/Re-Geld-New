@@ -3,11 +3,12 @@
 import { useState } from "react";
 import DetailCard from "./DetailCard";
 import { useLayout } from "@/app/layout";
-import { useData } from "../providers/DataProvider";
+import { useData } from "../../../components/providers/DataProvider";
 import { useRecordData } from "@/app/records/page";
 
 export default function Details() {
-  const { records, setRecords, displayType } = useData();
+  const { records, displayType } = useData();
+  console.log(records);
   const { stateUpToDate, amountMax, amountMin, amountValue } = useRecordData();
 
   const { hiddenCategories } = useData();

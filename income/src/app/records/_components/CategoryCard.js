@@ -4,28 +4,27 @@ import { IoMdArrowDropright } from "react-icons/io";
 
 import { useEffect, useState } from "react";
 import { useRecordData } from "@/app/records/page";
-import { useData } from "../providers/DataProvider";
+import { useData } from "../../../components/providers/DataProvider";
 
-export default function CategoryCard({ category }) {
+export default function CategoryCard({ name }) {
   const { hiddenCategories, setHiddenCategories } = useData(false);
 
-  const isHidden = hiddenCategories.includes(category);
+  const isHidden = hiddenCategories.includes(name);
 
   const handleClick = () => {
     if (isHidden) {
       const newHiddenCategories = hiddenCategories.filter((item) => {
-        return item !== category;
+        return item !== name;
       });
       setHiddenCategories(newHiddenCategories);
       return;
     }
-    setHiddenCategories([...hiddenCategories, category]);
+    setHiddenCategories([...hiddenCategories, name]);
   };
 
   return (
     <div className="w-full flex justify-between">
       <div className="flex gap-[5px]">
-        {/* Eye Icon */}
         <div className="flex justify-center items-center cursor-pointer">
           <button type="button" onClick={handleClick}>
             {isHidden ? <FaEyeSlash /> : <FaRegEye />}
@@ -33,7 +32,7 @@ export default function CategoryCard({ category }) {
         </div>
 
         {/* Category name */}
-        <div style={{ color: isHidden ? "gray" : "black" }}>{category}</div>
+        <div style={{ color: isHidden ? "gray" : "black" }}>{name}</div>
       </div>
       <div className="flex justify-center items-center">
         <IoMdArrowDropright />

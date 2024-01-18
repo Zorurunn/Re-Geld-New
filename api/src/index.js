@@ -128,16 +128,8 @@ app.post("/records", async (req, res) => {
     const payload = jwt.verify(authorization, "secret-key");
 
     const { id } = payload;
-    const {
-      type,
-      category,
-      amount,
-      date,
-      payee,
-      note,
-      // categoryColor,
-      iconName,
-    } = req.body;
+    const { type, category, amount, date, payee, note, categoryColor } =
+      req.body;
 
     await Record.create({
       type,
@@ -147,8 +139,7 @@ app.post("/records", async (req, res) => {
       date,
       payee,
       note,
-      // categoryColor,
-      iconName,
+      categoryColor,
       updatedAt: new Date(),
       createdAt: new Date(),
     });
@@ -167,7 +158,6 @@ app.post("/records", async (req, res) => {
 // POST Category
 app.post("/categories", async (req, res) => {
   const { authorization } = req.headers;
-
   if (!authorization) {
     return res.status(401).json({
       message: "Auth nashi",
@@ -179,12 +169,20 @@ app.post("/categories", async (req, res) => {
 
     const { id } = payload;
 
-    const { name, icon } = req.body;
+    const { name, icon, color } = req.body;
+    const isExist = await Category.find({ name });
+    console.log("ate");
 
+    if (isExist.length) {
+      return res.status(401).json({
+        message: `${isExist[0].name} category is already exists`,
+      });
+    }
     await Category.create({
       userId: id,
       name,
       icon,
+      color,
       updatedAt: new Date(),
       createdAt: new Date(),
     });

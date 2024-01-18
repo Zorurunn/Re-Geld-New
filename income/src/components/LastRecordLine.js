@@ -1,13 +1,6 @@
 import styles from "@/components/Css/lastRecord.module.css";
 import Link from "next/link";
-export function LastRecordLine({
-  type,
-  icon,
-  category,
-  date,
-  amount,
-  currency,
-}) {
+export function LastRecordLine({ type, icon, category, date, amount }) {
   return (
     <Link href={`/`}>
       <div className={styles.lineCont}>
@@ -21,7 +14,8 @@ export function LastRecordLine({
 
         <div className="flex justify-center items-center text-[green]">
           <div>{amount}</div>
-          <div>{currency}</div>
+          {/* todo: currency dousuru ??? */}
+          <div>Currency</div>
         </div>
       </div>
       {/* <div>{hr}</div> */}

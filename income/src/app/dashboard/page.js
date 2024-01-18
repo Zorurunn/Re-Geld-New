@@ -19,7 +19,6 @@ import { Test } from "./_components/Test";
 
 const DashBoardContext = createContext();
 export default function DashBoard() {
-  const { records } = useData();
   const [categories, setCategories] = useState([]);
 
   const router = useRouter();
@@ -37,7 +36,7 @@ export default function DashBoard() {
   return (
     <DashBoardContext.Provider
       value={{
-        records,
+        // records,
         categories,
         setCategories,
       }}

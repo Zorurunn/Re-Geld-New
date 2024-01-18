@@ -19,11 +19,12 @@ module.exports = {
       //   saaral: "#D1D5DB",
       // },
       colors: {
-        primary:"#F3F4F6",
+        primary: "#F3F4F6",
         secondary: "#D1D5DB",
         textHolder: "#94A3B8",
         mainBlue: "#0166FF",
-        baseColor: "#1F2937"
+        baseColor: "#1F2937",
+        mainGreen: "#16A34A",
       },
     },
   },

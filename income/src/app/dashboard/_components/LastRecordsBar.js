@@ -3,9 +3,11 @@ import { LastRecordLine } from "../../../components/LastRecordLine";
 import { HomeSvg } from "../../../components/SVG/HomeSvg";
 import styles from "@/components/Css/lastRecord.module.css";
 import { useDashboardData } from "@/app/dashboard/page";
+import { useData } from "@/components/providers/DataProvider";
 
 export function LastRecordsBar() {
-  const { records } = useDashboardData();
+  const { records, categories } = useData();
+  console.log(categories);
   const [data, setData] = useState([
     {
       svg: <HomeSvg />,
@@ -55,20 +57,26 @@ export function LastRecordsBar() {
   ]);
 
   return (
-    <div
-      className={`${styles.allCont} `}
-      style={{
-        gridTemplateRows: `repeat(${data.length + 1} ,1fr)`,
-      }}
-    >
-      <div className={styles.head}>
-        <div className="p-[15px]">Last Records</div>
-        <hr className="w-full" />
-      </div>
-
+    <div>
+      aaaa
       {records.map((item) => {
         return <LastRecordLine key={item.id} {...item} />;
       })}
     </div>
+    // <div
+    //   className={`${styles.allCont} `}
+    //   style={{
+    //     gridTemplateRows: `repeat(${data.length + 1} ,1fr)`,
+    //   }}
+    // >
+    //   <div className={styles.head}>
+    //     <div className="p-[15px]">Last Records</div>
+    //     <hr className="w-full" />
+    //   </div>
+
+    //   {records.map((item) => {
+    //     return <LastRecordLine key={item.id} {...item} />;
+    //   })}
+    // </div>
   );
 }

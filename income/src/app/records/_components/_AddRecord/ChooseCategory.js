@@ -1,5 +1,4 @@
 "use client";
-import * as myIcons from "react-icons/ai";
 import { FaCaretDown } from "react-icons/fa";
 
 import { useLayout } from "@/app/layout";
@@ -8,9 +7,9 @@ import { useEffect, useState } from "react";
 import CategoryLine from "./CategoryLine";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
-import { useCategory } from "../InputField";
+import { useCategory } from "./AddRecord";
 import { useRecordData } from "@/app/records/page";
-import { useData } from "../providers/DataProvider";
+import { useData } from "../../../../components/providers/DataProvider";
 
 export function ChooseCategory() {
   const [isHidden, setIshidden] = useState(true);
@@ -57,28 +56,30 @@ export function ChooseCategory() {
           )}
         </div>
         <div>
-          <FaCaretDown/>
+          <FaCaretDown />
         </div>
       </div>
       <div className="relative">
         <div
-          className="absolute top-0 left-0 bg-gray-50 w-full"
+          className="absolute top-0 left-0 bg-gray-50 w-full h-[300px] overflow-scroll shadow-md border-secondary  rounded-[10px]"
           style={{
             display: `${isHidden ? "none" : "block"}`,
           }}
         >
           <div
-            className="flex gap-[10px] p-[10px] cursor-pointer"
+            className="flex gap-[10px] p-[10px] cursor-pointer felx items-center"
             onClick={() => {
               setIsDisplayAddCategory((prev) => !prev);
               setIshidden((prev) => !prev);
               setVisiblityInputField((prev) => !prev);
             }}
           >
-            <div>+</div>
+            <div className="flex justify-center items-center bg-mainBlue rounded-[50%] w-[20px] h-[20px] text-white">
+              +
+            </div>
             <div className="text-black"> Add Category</div>
           </div>
-
+          <hr />
           {categories.map((item) => {
             return (
               <div

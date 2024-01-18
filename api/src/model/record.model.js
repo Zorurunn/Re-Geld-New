@@ -3,13 +3,12 @@ const mongoose = require("mongoose");
 const Record = mongoose.model("Record", {
   userId: mongoose.Schema.Types.ObjectId,
   type: String,
-  category:String,
-  amount:Number,
+  category: String,
+  amount: Number,
   date: Date,
-  payee:String,
-  note:String,
-  categoryColor:String,
-  iconName:String,
+  payee: String,
+  note: String,
+  categoryColor: String,
   updatedAt: Date,
   createdAt: Date,
 });

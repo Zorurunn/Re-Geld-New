@@ -1,13 +1,13 @@
 import { useLayout } from "@/app/layout";
 import styles from "@/components/Css/input.module.css";
 import { createContext, useContext, useEffect, useState } from "react";
-import CategoryLine from "./inputComponents/CategoryLine";
-import { ChooseCategory } from "./inputComponents/ChooseCategory";
+import CategoryLine from "./CategoryLine";
+import { ChooseCategory } from "./ChooseCategory";
 import { useRecordData, useSetDisplay } from "@/app/records/page";
 import axios from "axios";
-import { useData } from "./providers/DataProvider";
+import { useData } from "../../../../components/providers/DataProvider";
 import { RxCross2 } from "react-icons/rx";
-import { Spacer } from "./Spacer";
+import { Spacer } from "../../../../components/Spacer";
 
 const types = [
   {
@@ -34,7 +34,7 @@ const dates = [
 
 const SelectedCat = createContext();
 
-export const InputField = () => {
+export const AddRecord = () => {
   const { postRecord } = useData();
   const {
     setIsDisplayInputField,
@@ -51,14 +51,27 @@ export const InputField = () => {
 
   const submitted = async (e) => {
     e.preventDefault();
+    console.log(selectedCategory);
+
     const { elements } = e.target;
     const type = geldType;
-    const iconName = "icon name here";
-    const category = "category name here";
     const date = elements.Date.value;
-    const amount = elements.amount.value;
-
-    await postRecord(type, category, amount, date, iconName);
+    const time = elements.Time.value;
+    const amount = elements.Amount.value;
+    const payee = elements.Payee.value;
+    const note = elements.Note.value;
+    const category = selectedCategory.name;
+    const categoryColor = selectedCategory.color;
+    console.log(category, categoryColor);
+    if (
+      selectedCategory === null ||
+      amount === "" ||
+      date === "" ||
+      time === ""
+    ) {
+      return alert("fill in the blanks");
+    }
+    await postRecord(type, category, amount, date, payee, note, categoryColor);
 
     setIsDisplayInputField((prev) => !prev);
   };
@@ -92,10 +105,10 @@ export const InputField = () => {
                 }}
                 className={`cursor-pointer flex justify-center items-center `}
               >
-                <RxCross2 className="w-[35px] h-[35px]"/>
+                <RxCross2 className="w-[35px] h-[35px]" />
               </div>
             </div>
-            <hr className="border-secondary border-[1px] w-full mt-[20px] mb-[20px]"/>
+            <hr className="border-secondary border-[1px] w-full mt-[20px] mb-[20px]" />
 
             <div className={styles.gridCont}>
               <div className="flex flex-col gap-[20px]">
@@ -124,9 +137,13 @@ export const InputField = () => {
                 <div className="w-full bg-[#F3F4F6] rounded-[10px] p-[15px] border-secondary border-[1px]">
                   <div>Amount</div>
                   <input
-                    id="amount"
+                    id="Amount"
                     className="bg-[#F3F4F6]"
-                    type="number"
+                    style={{
+                      // radius??
+                      outline: "1px solid #E2E8F0",
+                    }}
+                    type="text"
                     placeholder={`000.00`}
                   />
                 </div>
@@ -173,7 +190,7 @@ export const InputField = () => {
                   <div className="w-full flex flex-col gap-[10px]">
                     <div>Payee</div>
                     <input
-                      id="payee"
+                      id="Payee"
                       className="bg-primary border-secondary border-[1px] w-full rounded-[10px] h-[60px] p-[20px]"
                       type="text"
                       placeholder={`write here`}
@@ -182,12 +199,12 @@ export const InputField = () => {
 
                   <div className="w-full flex flex-col gap-[10px] grow">
                     <div className="flex flex-col gap-[10px] h-full">
-                    <div className="">Note</div>
-                    <textarea
-                      id="note"
-                      className="bg-primary w-full h-[270px] border-[1px] border-secondary rounded-[10px] p-[20px] grow"
-                      placeholder={`note is here`}
-                    />
+                      <div className="">Note</div>
+                      <textarea
+                        id="Note"
+                        className="bg-primary w-full h-[270px] border-[1px] border-secondary rounded-[10px] p-[20px] grow"
+                        placeholder={`note is here`}
+                      />
                     </div>
                   </div>
                 </div>

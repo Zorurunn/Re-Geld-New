@@ -1,6 +1,6 @@
 "use client";
 
-import { useData } from "../providers/DataProvider";
+import { useData } from "../../../components/providers/DataProvider";
 
 export default function Types() {
   const { setDisplayType } = useData();

@@ -2,15 +2,15 @@
 import { Container } from "@/components/Container";
 import recStyle from "@/components/Css/records.module.css";
 import DashBoardHeader from "@/app/dashboard/_components/DashboardHeader";
-import { InputField } from "@/components/InputField";
-import Details from "@/components/detailsComponents/Details";
-import DetailsHeader from "@/components/detailsComponents/DetailsHeader";
+import { AddRecord } from "@/app/records/_components/_AddRecord/AddRecord";
+import Details from "@/app/records/_components/Details";
+import DetailsHeader from "@/app/records/_components/DetailsHeader";
 import { AddCategory } from "@/components/inputComponents/AddCategory";
 import { useData } from "@/components/providers/DataProvider";
-import AmountRange from "@/components/recordComponents/AmountRange";
-import Category from "@/components/recordComponents/Category";
-import RecordHeader from "@/components/recordComponents/RecordHeader";
-import Types from "@/components/recordComponents/Types";
+import AmountRange from "@/app/records/_components/AmountRange";
+import Category from "@/app/records/_components/Category";
+import RecordHeader from "@/app/records/_components/RecordHeader";
+import Types from "@/app/records/_components/Types";
 import axios from "axios";
 import {
   createContext,
@@ -29,6 +29,11 @@ export default function Records() {
   const [amountMax, setAmountMax] = useState(5000);
   const [amountMin, setAmountMin] = useState(0);
   const [amountValue, setAmountValue] = useState(1000);
+
+  const closeWindow = () => {
+    setVisiblityInputField((prev) => !prev);
+    setIsDisplayAddCategory((prev) => !prev);
+  };
 
   useEffect(() => {}, []);
   return (
@@ -51,8 +56,8 @@ export default function Records() {
           setAmountValue,
         }}
       >
-        {isDisplayInputField && <InputField />}
-        {isDisplayAddCategory && <AddCategory />}
+        {isDisplayInputField && <AddRecord />}
+        {isDisplayAddCategory && <AddCategory closeWindow={closeWindow} />}
 
         <DashBoardHeader />
         <div className={recStyle.gridCont}>

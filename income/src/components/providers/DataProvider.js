@@ -4,9 +4,29 @@ import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const DataContext = createContext();
+import * as reactIconsAi from "react-icons/ai";
 
-export const DataProvider = ({ children } ={ }) => {
+const DataContext = createContext();
+const iconNames = [
+  "AiFillAmazonSquare",
+  "AiFillAccountBook",
+  "AiFillAlert",
+  "AiFillAliwangwang",
+  "AiFillApi",
+  "AiFillAmazonSquare",
+  "AiFillApple",
+  "AiFillAudio",
+  "AiFillHome",
+  "AiFillBackward",
+  "AiFillAppstore",
+  "AiFillAndroid",
+  "AiFillAudio",
+  "AiFillApi",
+  "AiFillBehanceSquare",
+  "AiFillHome",
+];
+
+export const DataProvider = ({ children } = {}) => {
   const router = useRouter();
   const [refresh, setRefresh] = useState(0);
   const [records, setRecords] = useState([]);
@@ -54,10 +74,12 @@ export const DataProvider = ({ children } ={ }) => {
   // POST Record
   const postRecord = async (
     type,
-      category,
-      amount,
-      date,
-      iconName,
+    category,
+    amount,
+    date,
+    payee,
+    note,
+    categoryColor
   ) => {
     const token = localStorage.getItem("token");
     try {
@@ -69,7 +91,9 @@ export const DataProvider = ({ children } ={ }) => {
           category,
           amount,
           date,
-          iconName,
+          payee,
+          note,
+          categoryColor,
         },
         {
           headers: {
@@ -85,16 +109,17 @@ export const DataProvider = ({ children } ={ }) => {
   };
 
   // POST Category
-  const postCategory = async ( name, icon) => {
+  const postCategory = async (name, icon, color) => {
     const token = localStorage.getItem("token");
 
     try {
-      await axios.post(
+      const res = await axios.post(
         "http://localhost:3002/categories",
 
         {
           name,
           icon,
+          color,
         },
         {
           headers: {
@@ -102,6 +127,7 @@ export const DataProvider = ({ children } ={ }) => {
           },
         }
       );
+      console.log(res);
       setRefresh((prev) => 1 - prev);
     } catch (error) {
       console.log(error);
@@ -130,6 +156,7 @@ export const DataProvider = ({ children } ={ }) => {
         setHiddenCategories,
         displayType,
         setDisplayType,
+        iconNames,
       }}
     >
       {children}

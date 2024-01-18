@@ -1,20 +1,25 @@
 "use client";
-
+import * as reactIconsAi from "react-icons/ai";
 export default function DetailCard({
   type,
-  icon,
   category,
-  date,
   amount,
-  currency,
+  date,
+  payee,
+  note,
+  categoryColor,
 }) {
+  const Icon = reactIconsAi[category];
+  console.log(Icon);
+
+  console.log(category);
   return (
     <div className="w-full flex justify-between bg-gray-100 border-[2px] rounded-[10px] p-[15px]">
       <div className="flex gap-[10px]">
         <div>
           <input type="checkbox" />
         </div>
-        <div>{icon}</div>
+        <div>{/* <Icon /> */}</div>
         <div className="flex flex-col">
           <div>{category}</div>
           <div>{date}</div>

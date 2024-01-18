@@ -1,144 +1,126 @@
 "use client";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { ImCross } from "react-icons/im";
 import { useData } from "../providers/DataProvider";
-import * as myIcons from "react-icons/ai";
-import {
-  AiFillAndroid,
-  AiFillAlert,
-  AiFillAlipayCircle,
-  AiFillAlipaySquare,
-  AiFillAmazonSquare,
-  AiFillAmazonCircle,
-  AiFillAudio,
-  AiFillAppstore,
-  AiFillBackward,
-  AiFillApple,
-  AiFillApi,
-  AiFillBank,
-  AiFillAliwangwang,
-  AiFillBehanceCircle,
-  AiFillBehanceSquare,
-  AiFillBell,
-  AiFillBook,
-} from "react-icons/ai";
+
 import { useState } from "react";
 import { useRecordData } from "@/app/records/page";
-import { useCategory } from "../InputField";
+import * as reactIconsAi from "react-icons/ai";
 
-const defaultIcons = [
-  <myIcons.AiFillAmazonSquare className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillAccountBook className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillAlert className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillAliwangwang className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillApi className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillAmazonSquare className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillApple className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillAudio className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillHome className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillBackward className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillAppstore className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillAndroid className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillAudio className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillApi className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillBehanceSquare className="w-[30px] h-[30px] " />,
-  <myIcons.AiFillHome className="w-[30px] h-[30px] " />,
+const colors = [
+  "#0166FF",
+  "#01B3FF",
+  "#FF7B01",
+  "#AE01FF",
+  "#41CC00",
+  "#0FF7B0",
+  "#FF0101",
 ];
-const sendIcons = [
-  "AiFillAmazonSquare",
-  "AiFillAccountBook",
-  "AiFillAlert",
-  "AiFillAliwangwang",
-  "AiFillApi",
-  "AiFillAmazonSquare",
-  "AiFillApple",
-  "AiFillAudio",
-  "AiFillHome",
-  "AiFillBackward",
-  "AiFillAppstore",
-  "AiFillAndroid",
-  "AiFillAudio",
-  "AiFillApi",
-  "AiFillBehanceSquare",
-  "AiFillHome",
-];
+export function AddCategory({ closeWindow }) {
+  const notify = () => toast("Input category name!!!");
+  const { iconNames } = useData();
+  const { setIsDisplayAddCategory, setVisiblityInputField } = useRecordData();
 
-const icons = ["❤︎", "👶", "🍰", "🌸", "🖥", "📴", "🐕", "😸", "🏠"];
+  // Icon set
+  const [selecetedIconName, setSelecetedIconName] = useState("AiFillHome");
+  const [selectedColor, setSelectedColor] = useState("#343330");
+  const Icon = reactIconsAi[selecetedIconName];
 
-export function AddCategory() {
-  const {
-    isDisplayAddCategory,
-    setIsDisplayAddCategory,
-    setVisiblityInputField,
-  } = useRecordData();
+  const [isHideIcons, setIsHideIcons] = useState(true);
 
-  // const { setSelectedCategory } = useCategory();
-
-  const [selectedIcon, setSelectedIcon] = useState("🏠");
-  const [isHiddenIcon, setisHiddenIcon] = useState(true);
-
-  const { categories, postCategory } = useData();
+  const { postCategory } = useData();
 
   const addCategoryClicked = (event) => {
     event.preventDefault();
     const { elements } = event.target;
-    const name = elements.category.value;
 
-    const icon = selectedIcon;
-    postCategory(name, icon);
+    const name = elements.name.value;
+    const icon = selecetedIconName;
+    const color = selectedColor;
+    if (name === "") {
+      notify();
+      return;
+    }
 
-    setVisiblityInputField((prev) => !prev);
+    postCategory(name, icon, color);
 
-    setIsDisplayAddCategory((prev) => !prev);
+    closeWindow();
   };
-
-  const Icon = myIcons["AiFillAccountBook"];
 
   return (
     <div className="fixed top-[0] left-[0]  z-[20] w-full h-full flex justify-center items-center bg-[#00000070]">
       <div className="w-[500px] h-[200px] rounded-[12px] bg-[#fff] flex flex-col justify-between p-[16px]">
         <div className="flex justify-between items-center">
           <div className="text-[20px]">Add Category</div>
-          <ImCross />
-          <Icon />
+          <div onClick={closeWindow}>
+            <ImCross />
+          </div>
         </div>
 
         <form
           onSubmit={addCategoryClicked}
           className="flex flex-col gap-[20px]"
         >
-          <div className="w-ful flex gap-[20px]">
+          <div className="w-full flex gap-[20px] h-[60px]">
             <div>
               <div
-                className="cursor-pointer w-fit p-[10px] bg-[#fff] items-center border-[1px] border-[#D1D5DB] rounded-[10px]"
+                className="cursor-pointer w-[60px] h-[60px] p-[10px] bg-[#fff] border-[1px] border-[#D1D5DB] rounded-[10px]"
                 onClick={() => {
-                  setisHiddenIcon((prev) => !prev);
+                  setIsHideIcons((prev) => !prev);
                 }}
               >
-                {selectedIcon}
+                <Icon
+                  className="w-[90%] h-[90%]"
+                  style={{ color: `${selectedColor}` }}
+                />
               </div>
-              <div className="relative">
+              <div className=" relative">
                 <div
-                  className="absolute top-0 left-0 bg-[#fff] p-[20px] shadow-sm rounded-[10px] w-[250px]"
+                  className="absolute top-0 left-0 bg-[#fff] p-[20px] shadow-sm rounded-[10px] w-[250px] "
                   style={{
-                    display: `${isHiddenIcon ? "none" : "block"}`,
+                    display: `${isHideIcons ? "none" : "block"}`,
                   }}
                 >
-                  <div className="grid grid-cols-4 gap-[20px]">
-                    {sendIcons.map((item, index) => {
-                      const Iconed = myIcons[`${item}`];
-                      return (
-                        <div
-                          key={index}
-                          onClick={() => {
-                            setSelectedIcon(item);
-                            setisHiddenIcon((prev) => !prev);
-                          }}
-                          className={`cursor-pointer`}
-                        >
-                          <Iconed className="w-[30px] h-[30px] " />
-                        </div>
-                      );
-                    })}
+                  <div className="flex flex-col gap-[10px]">
+                    <div className="grid grid-cols-4 gap-[20px]">
+                      {iconNames.map((item, index) => {
+                        const Iconed = reactIconsAi[item];
+                        return (
+                          <div
+                            key={index}
+                            onClick={() => {
+                              setSelecetedIconName(item);
+                            }}
+                            className={`cursor-pointer`}
+                          >
+                            <Iconed className="w-[30px] h-[30px] " />
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <hr />
+                    <div className="justify-between w-full h-full flex gap-[10px]">
+                      {colors.map((item) => {
+                        return (
+                          <div
+                            className="w-[20px] h-[20px] rounded-[50%] p-[5px]"
+                            style={{
+                              backgroundColor: `${item}`,
+                              border: `${
+                                selectedColor === item
+                                  ? "2px solid #343330"
+                                  : "0px solid #343330"
+                              }`,
+                            }}
+                            onClick={() => {
+                              setSelectedColor(item);
+                            }}
+                          />
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -147,35 +129,21 @@ export function AddCategory() {
               <input
                 type="text"
                 placeholder="Type here"
-                className="input input-bordered w-full border-[#D1D5DB] "
-                id="category"
+                className="input input-bordered w-full border-[#D1D5DB] h-full"
+                id="name"
               />
             </div>
-
-            {/* <details class="dropdown">
-          <summary class="m-1 btn">{selectedIcon}</summary>
-          <ul class="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-            <div className="grid grid-cols-4 gap-[10px]">
-              {icons.map((item, index) => {
-                return (
-                  <li key={index} onClick={() => setSelectedIcon(item)}>
-                    <a>{item}</a>
-                  </li>
-                );
-              })}
-            </div>
-          </ul>
-        </details> */}
           </div>
 
           <button
             type="submit"
-            className="btn btn-info bg-secondary rounded-[20px] h-[40px] hover:bg-primary w-full"
+            className="btn btn-info rounded-[20px] h-[40px] hover:bg-[green] w-full bg-mainGreen border-0 text-white"
           >
             Add Category
           </button>
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }
